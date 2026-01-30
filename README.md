@@ -37,10 +37,10 @@ chmod +x kubernetes-setup.sh
 ./kubernetes-setup.sh help
 
 # On control plane
-./kubernetes-setup.sh setup-control-plane
+./kubernetes-setup.sh control-plane
 
 # On worker node
-./kubernetes-setup.sh setup-worker-node
+./kubernetes-setup.sh worker-node
 ```
 
 ## What It Does
