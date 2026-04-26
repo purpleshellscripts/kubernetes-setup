@@ -17,18 +17,18 @@ A Bash script for fast, repeatable Kubernetes cluster setup on Ubuntu, Rocky, an
 
 ## Tested on following OSes
 
-- Ubuntu 22.04 LTS
 - Ubuntu 24.04 LTS
-- Alma Linux 9
+- Ubuntu 22.04 LTS
 - Alma Linux 10
-- Rocky Linux 9
+- Alma Linux 9
 - Rocky Linux 10
+- Rocky Linux 9
 
 ## Tested with following Kubernetes versions
-- 1.32
-- 1.33
+- 1.36 (script's default version)
+- 1.35
 - 1.34
-- 1.35 (script's Default version)
+- 1.33
 
 ## Usage
 

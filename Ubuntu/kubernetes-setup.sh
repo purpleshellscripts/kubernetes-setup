@@ -2,7 +2,7 @@
 
 # Set up Kubernetes Version
 kubernetes-version() {
-    DEFAULT_KUBERNETES_VERSION=1.35
+    DEFAULT_KUBERNETES_VERSION=1.36
     echo "Enter Kubernetes version that you want to use. Press Enter if you want to use the default version: $DEFAULT_KUBERNETES_VERSION "
     echo "The default version is always the newest one that has passed all tests on the author’s side."
     printf "Enter the Kubernetes version (press Enter for default: %s): " "$DEFAULT_KUBERNETES_VERSION"
@@ -150,7 +150,7 @@ control-plane() {
     done
     echo
 
-    #Opens necessary ports on Control Plane if the default firewall service is active
+    # Opens necessary ports on Control Plane if the default firewall service is active
     if [ "$(sudo systemctl is-active ufw)" = active ]; then
         echo "Allowing necessary ports on Control Plane server..."
         for port in 6443 2379 2380 10250 10259 10257 179; do
@@ -245,10 +245,10 @@ control-plane() {
 
 worker-node() {
 
-    #kubernetes version
+    # Kubernetes version
     kubernetes-version
 
-    #Opens necessary ports on worker nodes if the default firewall service is active
+    # Opens necessary ports on worker nodes if the default firewall service is active
     if [ "$(sudo systemctl is-active ufw)" = active ]; then
         if sudo ufw allow 10250/tcp >>/dev/null && sudo ufw allow 10256/tcp && sudo ufw allow 30000:32767/tcp >>/dev/null; then
             echo "Ports 10250, 10265, and 30000-32777 allowed."
@@ -273,7 +273,7 @@ worker-node() {
     # Installs kubelet, kubeadm and kubectl
     kube-install
 
-    # Join the node to the cluster
+    # Join nodes to the cluster
     echo 
     echo "### Worker node setup completed! ###"
     echo "Worker node packages installed and configuration applied. You can now run the kubeadm join command to add this worker node to the cluster. "

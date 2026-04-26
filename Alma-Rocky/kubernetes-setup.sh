@@ -2,7 +2,7 @@
 
 # Set up Kubernetes Version
 kubernetes-version() {
-    DEFAULT_KUBERNETES_VERSION=1.35
+    DEFAULT_KUBERNETES_VERSION=1.36
     echo "Enter Kubernetes version that you want to use. Press Enter if you want to use the default version: $DEFAULT_KUBERNETES_VERSION "
     echo "The default version is always the newest one that has passed all tests on the author’s side."
     printf "Enter the Kubernetes version (press Enter for default: %s): " "$DEFAULT_KUBERNETES_VERSION"
@@ -107,7 +107,6 @@ EOF
 containerd-install() {
     echo "Installing containerd..."
     sleep 1
-    # sudo apt install -y containerd
     sudo dnf install -y dnf-plugins-core
     sudo dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     sudo dnf install -y containerd.io
@@ -183,7 +182,7 @@ control-plane() {
     done
     echo
 
-    #Opens necessary ports on Control Plane if the default firewall service is active
+    # Opens necessary ports on Control Plane if the default firewall service is active
     if [ "$(sudo systemctl is-active firewalld)" = active ]; then
         echo "Allowing necessary ports on Control Plane server..."
         for port in 6443 2379 2380 10250 10259 10257 179; do
@@ -237,7 +236,7 @@ control-plane() {
     sudo cp -i /etc/kubernetes/admin.conf "$HOME"/.kube/config
     sudo chown "$(id -u)":"$(id -g)" "$HOME/.kube/config"
 
-    #Enabling overlay and br_netfilter modules
+    # Enabling overlay and br_netfilter modules
     echo "Enabling overlay and br_netfilter modules..."
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 overlay
@@ -290,7 +289,7 @@ EOF
 
 worker-node() {
 
-    #kubernetes version
+    # Kubernetes version
     kubernetes-version
 
     if [ "$(sudo systemctl is-active firewalld)" = active ]; then
@@ -321,7 +320,7 @@ worker-node() {
     # Installs kubelet, kubeadm and kubectl
     kube-install
 
-    # Join the node to the cluster
+    # Join nodes to the cluster
     echo "### Worker node setup completed! ###"
     echo "Worker node packages installed and configuration applied. You can now run the kubeadm join command to add this worker node to the cluster. "
     }
