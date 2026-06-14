@@ -91,10 +91,10 @@ disable-swap() {
 ipv4-forwarding()   {
 echo "Enabling IPv4 forwarding..."
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
-net.bridge.bridge-nf-call-iptables = 1
 net.ipv4.ip_forward = 1
 EOF
-    if sudo sysctl -w net.ipv4.ip_forward=1; then
+    if sudo sysctl --system; then
+        echo
         echo "IPv4 packet forwarding enabled!"
     else
         echo "There was an issue enabling IPv4 packet forwarding! Exiting script execution..."
@@ -112,8 +112,16 @@ containerd-install() {
     sudo dnf install -y containerd.io
     echo
     echo "Setting containerd configuration..."
-    sudo mkdir -p /etc/containerd containerd config default | sudo tee /etc/containerd/config.toml
-    sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml
+    sudo mkdir -p /etc/containerd
+    containerd config default | sudo tee /etc/containerd/config.toml
+    echo
+    echo "Enabling SystemdCgroup..."
+    if sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml; then
+        echo "SystemdCgroup enabled."
+    else
+        echo "There was an issue enabling SystemdCgroup. Exiting script execution..."
+        exit 1
+    fi
     sudo systemctl enable --now containerd
     sleep 5
     echo

@@ -17,6 +17,7 @@ A Bash script for fast, repeatable Kubernetes cluster setup on Ubuntu, Rocky, an
 
 ## Tested on following OSes
 
+- Ubuntu 26.04 LTS
 - Ubuntu 24.04 LTS
 - Ubuntu 22.04 LTS
 - Alma Linux 10

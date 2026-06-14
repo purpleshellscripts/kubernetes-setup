@@ -68,8 +68,7 @@ disable-swap() {
 ipv4-forwarding()   {
     echo "Enabling IPv4 packet forwarding..."
     sleep 1
-    sudo bash -c 'echo 1 > /proc/sys/net/ipv4/ip_forward'
-    if sysctl -w net.ipv4.ip_forward=1; then
+    if sudo sysctl -w net.ipv4.ip_forward=1; then
         echo "IPv4 packet forwarding enabled!"
     else
         echo "There was an issue enabling IPv4 packet forwarding! Exiting script execution..."
@@ -88,8 +87,16 @@ containerd-install() {
     echo "Setting containerd configuration..."
     sleep 2
     sudo mkdir -p /etc/containerd
-    containerd config default | sed 's/SystemdCgroup = false/SystemdCgroup = true/' | sudo tee /etc/containerd/config.toml
-    sudo sed -i '/forward/s/^#//' /etc/sysctl.conf
+    containerd config default | sudo tee /etc/containerd/config.toml
+    echo
+    echo "Enabling SystemdCgroup..."
+    if sudo sed -i 's/SystemdCgroup = false/SystemdCgroup = true/' /etc/containerd/config.toml; then
+        echo "SystemdCgroup enabled."
+    else
+        echo "There was an issue enabling SystemdCgroup. Exiting script execution..."
+        exit 1
+    fi
+
     sudo systemctl restart containerd
     sleep 5
     echo
