@@ -2,7 +2,7 @@
 
 # Set up Kubernetes Version
 kubernetes-version() {
-    DEFAULT_KUBERNETES_VERSION=1.36
+    DEFAULT_KUBERNETES_VERSION=1.37
     echo "Enter Kubernetes version that you want to use. Press Enter if you want to use the default version: $DEFAULT_KUBERNETES_VERSION "
     echo "The default version is always the newest one that has passed all tests on the author’s side."
     printf "Enter the Kubernetes version (press Enter for default: %s): " "$DEFAULT_KUBERNETES_VERSION"

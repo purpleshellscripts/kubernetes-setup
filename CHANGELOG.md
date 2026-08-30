@@ -1,6 +1,15 @@
 # Changelog
 A list of new features, fixes, and depreciations per version.
 
+# 1.3.0
+
+## Features
+
+* Added support for Kubernetes 1.37
+
+## Depreciations
+* 1.33 - EOL - No longer maintened by Kubernetes
+
 # 1.2.0
 
 ## Features
