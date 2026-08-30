@@ -26,10 +26,10 @@ A Bash script for fast, repeatable Kubernetes cluster setup on Ubuntu, Rocky, an
 - Rocky Linux 9
 
 ## Tested with following Kubernetes versions
-- 1.36 (script's default version)
+- 1.37 (script's default version)
+- 1.36
 - 1.35
 - 1.34
-- 1.33
 
 ## Usage
 
